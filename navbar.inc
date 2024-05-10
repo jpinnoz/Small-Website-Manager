@@ -1,4 +1,4 @@
-<nav id="vnav1">
+<nav id="vnav1" style="margin-left:2%">
 <?php
 $query = "SELECT Menu_Entry, Title FROM SubMenus WHERE MenuID='1' AND Active=1 ORDER BY LinkID ASC LIMIT 10";
 $result = mysqli_query($cxn,$query) or die ("Couldn't execute query.");
