@@ -43,8 +43,8 @@ if ($_GET["page"]) {
 	$handle = htmlspecialchars_decode($_GET["page"]);
 	$handle = preg_replace('/_/', ' ', $handle);
 	$query = "SELECT Cust_Pages.Title AS Title, Cust_Pages.Body AS Body FROM Cust_Pages INNER JOIN Cust_Pages_DATA ON Cust_Pages_DATA.Page_ID=Cust_Pages.Page_ID AND Cust_Pages_DATA.Page_Iteration=Cust_Pages.Page_Iteration WHERE Title='$handle' AND Cust_Pages_DATA.Active=1;";
-} elseif ($_GET["thread"] AND $_GET["subthread"]) {
-	$query = "SELECT Title, Body FROM Cust_Pages WHERE Thread_ID=".$_GET["thread"]." AND Sub_Thread_ID=".$_GET["subthread"]." ORDER BY Last_Modified DESC;";
+} elseif ($_GET["pageID"] AND $_GET["iteration"]) {
+	$query = "SELECT Title, Body FROM Cust_Pages WHERE Page_ID=".$_GET["pageID"]." AND Page_Iteration=".$_GET["iteration"]." ORDER BY Last_Modified DESC;";
 } elseif ($_SERVER["REQUEST_METHOD"] == "POST" AND isset($_POST['ftitle'])) {
 	$handle = htmlspecialchars_decode($_POST["ftitle"]);
 	$handle = preg_replace('/_/', ' ', $handle);	
@@ -58,7 +58,7 @@ if ($_GET["page"]) {
 $result = mysqli_query($cxn,$query) or die ("Couldn't execute query.");
 if ($row = mysqli_fetch_assoc($result))
 {
-	if ($_GET["thread"] AND $_GET["subthread"]) {
+	if ($_GET["pageID"] AND $_GET["iteration"]) {
 		echo "<h4>Note: This web page is not the current <span style=\"text-decoration: underline;\">active</span> one. If you however wish to revert to this page, click \"Edit Page\".</h4>";
 	}
 	echo	"<h1>{$row['Title']}</h1>\r\n";
