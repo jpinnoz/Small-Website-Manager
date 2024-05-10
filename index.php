@@ -93,7 +93,14 @@ if ($row = mysqli_fetch_assoc($result))
 	if ($_SESSION['auth_lev'] == 3 AND isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) ) {
 		$pageTitle = preg_replace('/ /', '_', $row['Title']);
 		echo "<div>\r\n";
-		echo "<a href='editpage.php?page=$pageTitle'>[Edit Page]</a>\r\n";
+		
+		if ($_GET['pageID']) {
+			if ($_GET['iteration']) {
+				echo "<a href='editpage.php?pageID={$_GET['pageID']}&iteration={$_GET['iteration']}'>[Edit Page]</a>\r\n";
+			}
+		} else {
+			echo "<a href='editpage.php?page=$pageTitle'>[Edit Page]</a>\r\n";
+		}
 		if ($_GET['pageID']) {
 			if ($_GET['iteration']) {
 				echo "<a href='restore.php?pageID={$_GET['pageID']}&iteration={$_GET['iteration']}'>[Restore]</a>\r\n";

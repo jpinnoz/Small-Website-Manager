@@ -13,13 +13,13 @@ if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESS
 
 			$title = $_POST['ftitle'];
 			$pageID = $_POST['fpageID'];
-			//$pageIteration = $_POST['fpageIteration'];
+			$pageIteration = $_POST['fpageIteration'];
 			
-			$query1 = "UPDATE Cust_Pages_DATA SET Active=1 WHERE Page_ID=$pageID";
+			$query1 = "UPDATE Cust_Pages_DATA SET Page_ID=$pageID, Page_Iteration=$pageIteration, Active=1 WHERE Page_ID=$pageID";
 			mysqli_query($cxn,$query1);
 			
 			if ($pageID !== 1) {
-				$query2 = "UPDATE SubMenus SET Active=1 WHERE Page_ID=$pageID";
+				$query2 = "UPDATE SubMenus SET Active=1, Title='index.php?page=$title' WHERE Page_ID=$pageID";
 				mysqli_query($cxn,$query2);
 			}
 			

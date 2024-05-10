@@ -55,34 +55,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 	$result1 ="";
 	$query1 ="";
 	if (isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESSION['auth_lev']==3 ) {
-		if ($_GET["page"]) {
-			
-			//echo "Test 1";
-			$handle = htmlspecialchars_decode($_GET["page"]);
-			$handle = preg_replace('/_/', ' ', $handle);
+		if ($_GET['pageID'] && $_GET['iteration'] || $_GET['page']) {
+			if ($_GET['page']) {
+				//echo "Test 1";
+				$handle = htmlspecialchars_decode($_GET["page"]);
+				$handle = preg_replace('/_/', ' ', $handle);
 
-			$query1 = "SELECT Cust_Pages.Title AS Title, Cust_Pages.Body AS Body, Cust_Pages.Page_ID AS Page_ID, Cust_Pages.Page_Iteration AS Page_Iteration, Cust_Pages.Last_Modified FROM Cust_Pages INNER JOIN Cust_Pages_DATA ON Cust_Pages_DATA.Page_ID=Cust_Pages.Page_ID AND Cust_Pages_DATA.Page_Iteration=Cust_Pages.Page_Iteration WHERE Title='$handle' AND Cust_Pages_DATA.Active=1;";
+				$query1 = "SELECT Cust_Pages.Title AS Title, Cust_Pages.Body AS Body, Cust_Pages.Page_ID AS Page_ID, Cust_Pages.Page_Iteration AS Page_Iteration, Cust_Pages.Last_Modified FROM Cust_Pages INNER JOIN Cust_Pages_DATA ON Cust_Pages_DATA.Page_ID=Cust_Pages.Page_ID AND Cust_Pages_DATA.Page_Iteration=Cust_Pages.Page_Iteration WHERE Title='$handle' AND Cust_Pages_DATA.Active=1;";
+				
+				//echo $query1;
+				$result1 = mysqli_query($cxn,$query1);
+				$row1 = mysqli_fetch_assoc($result1);
+				
+				$pageID = $row1['Page_ID'];
+				
+			} elseif ($_GET['pageID'] && $_GET['iteration']) {
 			
-			$result1 = mysqli_query($cxn,$query1);
-			$row1 = mysqli_fetch_assoc($result1);
-			//echo $query1;
+				$pageID = $_GET['pageID'];
+				$pageIteration = $_GET['iteration'];
+				$query1 = "SELECT Title, Body, Page_ID, Page_Iteration, Last_Modified FROM Cust_Pages WHERE Page_ID=$pageID AND Page_Iteration=$pageIteration;";
+				echo $query1;
+				$result1 = mysqli_query($cxn,$query1);
+				$row1 = mysqli_fetch_assoc($result1);
+				//echo $query1;
+			}
 			
-			$pageID = $row1['Page_ID'];
 			$query2 = "SELECT MAX(Page_Iteration) AS `Page_Iteration` FROM Cust_Pages WHERE Page_ID=$pageID";
 			$result2 = mysqli_query($cxn,$query2);
 			$row2 = mysqli_fetch_assoc($result2);
-			
 			$newPageIteration = $row2['Page_Iteration']+1;
 			$handle2 = "index.php?page=".$handle;
 			
-			if ($row1['Page_ID']==1) {
-				$query3 = "SELECT `Menu_Entry` FROM `SubMenus` WHERE `Title`='index.php'";
-			} else {
-				$query3 = "SELECT `Menu_Entry` FROM `SubMenus` WHERE `Title`='$handle2'";
-			}
+			$query3 = "SELECT `Menu_Entry` FROM `SubMenus` WHERE Page_ID=$pageID";
 			$result3 = mysqli_query($cxn,$query3);
 			$row3 = mysqli_fetch_assoc($result3);
-			
+				
 			echo	"<h3>Edit Page</h3>\r\n
 			<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">\r\n
 			<table>\r\n
