@@ -18,7 +18,7 @@ if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESS
 			$query1 = "UPDATE Cust_Pages_DATA SET Active=1 WHERE Page_ID=$pageID";
 			mysqli_query($cxn,$query1);
 			
-			if ($thread !== 1) {
+			if ($pageID !== 1) {
 				$query2 = "UPDATE SubMenus SET Active=1 WHERE Title='index.php?page=$title'";
 				mysqli_query($cxn,$query2);
 			}
