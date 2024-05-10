@@ -1,0 +1,152 @@
+* {
+	font-family: Arial, sans-serif;
+	box-sizing: border-box;
+}
+
+header {
+	font-size: 24pt;
+}
+
+hr {
+	margin-bottom: 1%;
+}
+
+h1, h2, h3 {
+	padding: 0%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+div#toptabbar {
+	/*text-align: right;*/
+	/*clear: both;*/
+	/*float: left;*/
+	margin-bottom: 0%;
+}
+
+article#main {
+	margin-left:16%;
+	width: 81%;
+	float:none;
+	border: 1px solid black;
+	padding: 1%;
+	/*clear: both;*/
+	/*clear: right;*/
+}
+
+nav#vnav1 {
+	width:13%;
+	float:left;
+	border: 1px solid black;
+	padding: 1%;
+	clear: both;
+	margin-top: 0%;
+}
+
+nav#vnav1 a {
+	display: list-item;
+	list-style-type: none;
+}
+
+nav#hnav1  {
+	margin-bottom: 0.6%;
+	/*text-align: right;*/
+	margin-right: 2%;
+	/*float: right;*/
+}
+
+form#logout {
+	/*margin-bottom: 0.6%;*/
+	/*float: right;*/
+	/*text-align: right;*/
+	margin-right: 2%;
+	margin-bottom: 0%;
+	/*float:right;*/
+	/*margin-left:1%;*/
+	display: flex;
+}
+
+input[type="submit"].logoutbutton {
+	 /*all: initial;*/
+	 font-family: Arial, sans-serif;	 
+	 font-size: 12pt;
+    border: 1px solid black;
+    text-decoration: underline;
+	 margin-left: 1%;
+	 margin-top: 0%;
+	 padding: 5px;
+    border-top-left-radius: 30%;
+	 border-top-right-radius: 30%;
+	 background-color: transparent;
+	 display: inline-block;
+	/*margin-bottom: -10%;*/
+	 /*float: left;*/
+}
+
+nav#hnav2 {
+	float:left;
+	/*text-align: left;*/
+}
+
+nav#hnav1 a {
+	border: 1px solid black;
+	padding: 0.5%;
+	margin-left: 0.5%;
+	margin-bottom: 0%;
+	border-top-left-radius: 30%;
+	border-top-right-radius: 30%;
+	/*float: right;
+	position:relative;*/
+}
+
+footer {
+	padding-right: 1%;
+	padding-left: 1%;
+	width: 97%;
+	margin-top: 1%;
+	clear: both;
+	border: 1px solid black;
+	text-align: right;
+}
+
+div.error {
+	background-color:pink;
+	border: 1px solid black;
+}
+
+div.message {
+	background-color:lime;
+}
+
+table.news {
+	border: 1px solid black;
+	width: 100%;
+	margin: 2px;
+	margin-bottom: 5px;
+	padding: 10px;
+	border-collapse: collapse;
+	text-align: left;
+	/*width: 0px;*/
+	border: 1px solid black;
+	margin: 2px;
+}
+
+th {
+	border: 1px solid black;
+	font-weight: normal;
+	text-align: right;
+}
+
+th.heading {
+	/*text-align: left;*/
+	width: 60%;
+}
+
+th.username {
+	width: 20%;
+}
+
+th.datetime {
+	width: 20%;
+	/*background-color: red;*/
+}
