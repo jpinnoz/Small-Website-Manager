@@ -41,7 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
 			}
 		} elseif ($pageID == 1 AND $addToMenu==FALSE) {
-			echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
+			//echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
+			$message .= "You cannot remove the Home Page from the Navigation Bar<br>\r\n";
 		} elseif ($addToMenu==FALSE) {
 			//$query3 = "DELETE FROM `SubMenus` WHERE Title='index.php?page=$oldTitle'";
 			$query3 = "UPDATE `SubMenus` SET Active=0 WHERE Page_ID=$pageID";		
