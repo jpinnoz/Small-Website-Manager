@@ -19,11 +19,11 @@ if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESS
 			mysqli_query($cxn,$query1);
 			
 			if ($pageID !== 1) {
-				$query2 = "UPDATE SubMenus SET Active=1 WHERE Title='index.php?page=$title'";
+				$query2 = "UPDATE SubMenus SET Active=1 WHERE Page_ID=$pageID";
 				mysqli_query($cxn,$query2);
 			}
 			
-			echo "<div class='message'>Page Restored Successfully</div>"; //check this please
+			//echo "<div class='message'>Page Restored Successfully</div>"; //check this please
 			$location = "Location: index.php";
 			header($location);
 			die();

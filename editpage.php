@@ -24,21 +24,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 		mysqli_query($cxn,$query2);
 		
 		if ($pageID == 1 AND $addToMenu==TRUE) {
-			$query3 = "UPDATE `SubMenus` SET `Menu_Entry`='$menuEntry' WHERE `Title`='index.php'";
+			$query3 = "UPDATE `SubMenus` SET `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'";
 			mysqli_query($cxn,$query3);
 		} elseif ($addToMenu==TRUE) {
-			$query2b="SELECT Title FROM SubMenus WHERE `Title`='index.php?page=$oldTitle'";
-			$result2b = mysqli_query($cxn,$query2b);
-			if ($row2b = mysqli_fetch_assoc($result2b)) {
-				$query3 = "UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry' WHERE `Title`='index.php?page=$oldTitle'";
-				mysqli_query($cxn,$query3);
-			} else {
+			if (!$mysqli -> query("UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'")) {
 				$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
 				$result3 = mysqli_query($cxn,$findMaxLinkID);
 				$row3 = mysqli_fetch_assoc($result3);
 				$newID = $row3['LargestID'] + 1;
 				
-				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$menuEntry','index.php?page=$newTitle')";
+				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$pageID','$menuEntry','index.php?page=$newTitle')";
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
 			}
 		} elseif ($pageID == 1 AND $addToMenu==FALSE) {

@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submitCode']=="New_Page") {
 				$row2 = mysqli_fetch_assoc($result2);
 				$newID = $row2['LargestID'] + 1;
 				
-				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$menuName','$url1')";
+				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$maxID','$menuName','$url1')";
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
 			}
 		} else {
