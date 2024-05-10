@@ -45,7 +45,7 @@ nav#vnav1 {
 
 nav#vnav1 a {
 	display: list-item;
-	list-style-type: circle;
+	list-style-type: disc;
 	margin-left: 3%;
 }
 
