@@ -1,7 +1,10 @@
 <?php
 include ("db_connect.inc");
 session_start();
-
+	include ("header.inc");
+	include ("navbar.inc");
+	echo "<article id='main'>\r\n";
+	
 if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page") {
 		$newTitle = $_POST['ftitle'];
 		$oldTitle = $_POST['fOldTitle'];
@@ -21,13 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 		//echo "<p>";
 		
 		$query2 = "UPDATE Cust_Pages_DATA SET Page_Iteration=$pageIteration WHERE Page_ID=$pageID";
+		echo $query2;
 		mysqli_query($cxn,$query2);
 		
 		if ($pageID == 1 AND $addToMenu==TRUE) {
 			$query3 = "UPDATE `SubMenus` SET `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'";
 			mysqli_query($cxn,$query3);
 		} elseif ($addToMenu==TRUE) {
-			if (!$mysqli -> query("UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'")) {
+			if (!$cxn -> query("UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry', Active=1 WHERE `Page_ID`='$pageID'")) {
 				$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
 				$result3 = mysqli_query($cxn,$findMaxLinkID);
 				$row3 = mysqli_fetch_assoc($result3);
@@ -37,9 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
 			}
 		} elseif ($pageID == 1 AND $addToMenu==FALSE) {
-			$message = "You cannot remove the Home Page from the Navigation Bar<br>\r\n";
+			echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
 		} elseif ($addToMenu==FALSE) {
-			$query3 = "DELETE FROM `SubMenus` WHERE Title='index.php?page=$oldTitle'";
+			//$query3 = "DELETE FROM `SubMenus` WHERE Title='index.php?page=$oldTitle'";
+			$query3 = "UPDATE `SubMenus` SET Active=0 WHERE Page_ID=$pageID";		
 			mysqli_query($cxn,$query3);
 		}
 		
@@ -48,9 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 		header($location);
 		die();
 } else {
-	include ("header.inc");
-	include ("navbar.inc");
-	echo "<article id='main'>\r\n";
+
 	
 	$result1 ="";
 	$query1 ="";
@@ -111,8 +114,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 	} else {
 		echo "<div class='error'>Unauthorized Access</div>";
 	}
+
+}
 	echo "</article>\r\n";
 	include ("footer.inc");
-}
 
 ?>

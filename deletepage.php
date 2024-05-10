@@ -26,7 +26,7 @@ if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESS
 				$query1 = "UPDATE Cust_Pages_DATA SET Active=0 WHERE Page_ID=$pageID";
 				mysqli_query($cxn,$query1);	
 				
-				$query2 = "UPDATE `SubMenus` SET Active=0 WHERE `Title`='index.php?page=$page'";
+				$query2 = "UPDATE `SubMenus` SET Active=0 WHERE Page_ID=$pageID";
 				mysqli_query($cxn,$query2);
 				
 				echo "<div class='message'>Page Deleted Successfully</div>";
