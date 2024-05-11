@@ -267,8 +267,7 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`ID`, `First_Name`, `Last_Name`, `eMail`, `User_Name`, `Password`, `Activate_Pass`, `Change_Pass`, `Change_Pass_Expire`, `Forgot_Pass`, `Forgot_Pass_Expire`, `DateTime_Joined`, `Last_Logged`, `Authority_Level`, `Active`) VALUES
-(35, 'Joseph', 'Pinzone', 'jrpinzone@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-10 23:11:50', 3, 1),
-(36, 'Joseph', 'Pinzone', 'jpinnoz@yahoo.com', 'JoePin', '$2y$10$.N2YWmKjgfsX7OxBxCOIfudqSUobHmfZ5bsvAaJ/xVCKf4gOU8mKG', '$2y$10$4IORvnqQLLk4TiFuXoTAG.XxFXFRfZjdBa2jLLkltLfsWmGU5GoOm', NULL, NULL, NULL, NULL, '2024-04-02 20:58:51', '2024-04-02 20:58:51', 1, 1);
+(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-10 23:11:50', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
