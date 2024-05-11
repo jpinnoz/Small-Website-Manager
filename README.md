@@ -1,4 +1,4 @@
-Copy all the files except SWM.SQL into your web directory
+Copy all the files except SWM.SQL and README.MD into your web directory
 
 Import the database from SWM.SQL using phpMyAdmin or whatever you like
 
