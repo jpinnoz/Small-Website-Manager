@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 11, 2024 at 07:15 AM
+-- Generation Time: May 17, 2024 at 07:09 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.7
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `SWM`
 --
+CREATE DATABASE IF NOT EXISTS `SWM` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `SWM`;
 
 -- --------------------------------------------------------
 
@@ -241,6 +243,21 @@ INSERT INTO `SubMenusData` (`Type`, `Default Menu Title`, `LinkData`, `GetData`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `SubMenus_BACKUP`
+--
+
+CREATE TABLE `SubMenus_BACKUP` (
+  `Page_ID` int(11) NOT NULL,
+  `Page_Iteration` int(11) NOT NULL,
+  `Menu_ID` int(11) NOT NULL,
+  `Link_ID` int(11) NOT NULL,
+  `Menu_Entry` varchar(20) NOT NULL,
+  `Title` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Users`
 --
 
@@ -267,7 +284,7 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`ID`, `First_Name`, `Last_Name`, `eMail`, `User_Name`, `Password`, `Activate_Pass`, `Change_Pass`, `Change_Pass_Expire`, `Forgot_Pass`, `Forgot_Pass_Expire`, `DateTime_Joined`, `Last_Logged`, `Authority_Level`, `Active`) VALUES
-(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-10 23:11:50', 3, 1);
+(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-11 18:50:18', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
