@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2024 at 07:09 AM
+-- Generation Time: May 17, 2024 at 07:30 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.7
 
@@ -44,48 +44,10 @@ CREATE TABLE `Cust_Pages` (
 --
 
 INSERT INTO `Cust_Pages` (`Page_ID`, `Page_Iteration`, `Parent_Iteration`, `Title`, `Body`, `Last_Modified`, `Last_Author`) VALUES
-(1, 1, 0, 'Welcome', 'Welcome to version 3 of my Homepage. Test Test', '2024-03-11 13:02:44', 0),
-(1, 2, 1, 'Welcome', 'Welcome to version 3 of my Homepage. Test Test', '2024-03-11 12:49:59', 1),
-(1, 3, 2, 'Welcome', 'Welcome to version 3 of my Homepage. Test Test', '2024-03-11 12:13:03', 1),
-(1, 4, 3, 'Welcome', 'Test 2', '2024-03-11 12:43:13', 1),
-(1, 5, 4, 'Welcome', 'Test 3', '2024-03-11 12:49:37', 1),
-(1, 6, 5, 'Welcome', 'Test 6', '2024-03-11 12:50:26', 1),
-(1, 7, 6, 'Welcome', 'Test 7', '2024-03-11 12:52:07', 1),
-(1, 8, 7, 'Welcome', 'Test 9', '2024-03-11 12:59:40', 1),
-(1, 9, 0, 'Welcome', 'Testarooni', '2024-03-11 13:00:11', 1),
-(1, 10, 1, 'Welcome', 'Testa', '2024-03-11 13:02:10', 1),
-(1, 11, 10, 'Welcome', 'Testa', '2024-03-11 13:02:37', 1),
-(1, 12, 1, 'Welcome', 'Cool', '2024-03-11 13:02:53', 1),
-(1, 13, 12, 'Welcome', 'Cool 2', '2024-03-11 13:05:21', 1),
-(1, 14, 13, 'Welcome', 'Cool 2', '2024-05-06 16:01:05', 35),
-(1, 15, 14, 'Welcome', 'Cool 2', '2024-05-06 16:24:39', 35),
-(2, 1, 0, 'Page 1', 'Testarooni', '2024-05-06 16:25:01', 35),
-(1, 16, 15, 'Welcome', 'Cool 2', '2024-05-10 15:52:58', 35),
-(2, 2, 1, 'Page 1', 'Testarooni 2', '2024-05-10 15:58:42', 35),
-(3, 1, 0, 'Page 2', 'Joe lives here', '2024-05-10 16:19:45', 35),
-(3, 2, 1, '1', '1', '2024-05-10 16:20:04', 35),
-(1, 17, 16, 'Welcome', 'Cool 2', '2024-05-10 16:43:09', 35),
-(1, 18, 17, 'Welcome', 'Cool 222', '2024-05-10 23:12:21', 35),
-(1, 19, 18, 'Welcome', 'Cool 222', '2024-05-10 23:12:30', 35),
-(4, 1, 0, 'Page 3', 'Bingo', '2024-05-10 23:14:55', 35),
-(4, 2, 1, 'Page 3', 'Bingo Bingo', '2024-05-10 23:15:13', 35),
-(4, 3, 2, 'Page 3', 'Bingo Bingo', '2024-05-10 23:15:24', 35),
-(4, 4, 3, 'Page 3', 'Bingo Bingo', '2024-05-10 23:16:40', 35),
-(4, 5, 4, 'Page 3', 'Bingo Bingo', '2024-05-10 23:23:39', 35),
-(4, 6, 5, 'Page 3', 'Bingo Bingo', '2024-05-10 23:31:14', 35),
-(4, 6, 5, 'Page 3', 'Bingo Bingo', '2024-05-10 23:31:19', 35),
-(4, 7, 6, 'Page 3', 'Bingo Bingo', '2024-05-10 23:32:51', 35),
-(4, 8, 7, 'Page 3', 'Bingo Bingo', '2024-05-10 23:34:27', 35),
-(4, 9, 8, 'Page 3', 'Bingo Bingo', '2024-05-10 23:40:31', 35),
-(4, 10, 9, 'Page 3', 'Bingo Bingo', '2024-05-10 23:40:46', 35),
-(4, 11, 10, 'Page 3', 'Bingo Bingo', '2024-05-10 23:40:57', 35),
-(4, 12, 11, 'Page 3', 'Bingo Bingo', '2024-05-10 23:41:06', 35),
-(4, 13, 12, 'Page 3', 'Bingo Bingo', '2024-05-10 23:42:06', 35),
-(4, 14, 13, 'Page 3', 'Bingo Bingo', '2024-05-10 23:43:29', 35),
-(4, 15, 14, 'Page 3', 'Bingo Bingo', '2024-05-10 23:43:39', 35),
-(4, 16, 15, 'Page 3', 'Bingo Bingo', '2024-05-10 23:43:44', 35),
-(4, 17, 16, 'Page 3', 'Bingo Bingo', '2024-05-10 23:43:47', 35),
-(1, 20, 19, 'Welcome', 'Cool 222', '2024-05-10 23:44:47', 35);
+(1, 1, 0, 'Welcome', 'This is the homepage!', '2024-05-17 17:21:52', 35),
+(2, 1, 0, 'Page 2', 'Testaroo!', '2024-05-17 17:29:01', 35),
+(2, 2, 1, 'Page 2', 'Version 2', '2024-05-17 17:29:32', 35),
+(2, 3, 1, 'Page 2', 'Testaroo! Testaroo!', '2024-05-17 17:29:54', 35);
 
 -- --------------------------------------------------------
 
@@ -104,10 +66,8 @@ CREATE TABLE `Cust_Pages_DATA` (
 --
 
 INSERT INTO `Cust_Pages_DATA` (`Page_ID`, `Page_Iteration`, `Active`) VALUES
-(1, 20, 1),
-(2, 2, 1),
-(3, 1, 0),
-(4, 17, 1);
+(1, 1, 1),
+(2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -213,10 +173,7 @@ CREATE TABLE `SubMenus` (
 
 INSERT INTO `SubMenus` (`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`, `Active`) VALUES
 (1, 1, 1, 'Home', 'index.php', 1),
-(1, 3, 0, 'News', 'news.php', 1),
-(1, 4, 2, 'Page 1', 'index.php?page=Page 1', 1),
-(1, 5, 3, '1', 'index.php?page=Page 2', 0),
-(1, 6, 4, 'Page 3b', 'index.php?page=Page 3', 0);
+(1, 2, 2, 'Page 2', 'index.php?page=Page 2', 1);
 
 -- --------------------------------------------------------
 
@@ -255,6 +212,14 @@ CREATE TABLE `SubMenus_BACKUP` (
   `Title` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `SubMenus_BACKUP`
+--
+
+INSERT INTO `SubMenus_BACKUP` (`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES
+(1, 1, 1, 1, 'Home', 'index.php'),
+(2, 1, 1, 2, 'Page 2', 'index.php?page=Page 2');
+
 -- --------------------------------------------------------
 
 --
@@ -284,7 +249,7 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`ID`, `First_Name`, `Last_Name`, `eMail`, `User_Name`, `Password`, `Activate_Pass`, `Change_Pass`, `Change_Pass_Expire`, `Forgot_Pass`, `Forgot_Pass_Expire`, `DateTime_Joined`, `Last_Logged`, `Authority_Level`, `Active`) VALUES
-(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-11 18:50:18', 3, 1);
+(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-17 17:28:36', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
