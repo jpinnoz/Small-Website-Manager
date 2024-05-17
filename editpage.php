@@ -35,10 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 				$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
 				$result3 = mysqli_query($cxn,$findMaxLinkID);
 				$row3 = mysqli_fetch_assoc($result3);
-				$newID = $row3['LargestID'] + 1;
+				$newLinkID = $row3['LargestID'] + 1;
 				
-				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$pageID','$menuEntry','index.php?page=$newTitle')";
+				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newLinkID','$pageID','$menuEntry','index.php?page=$newTitle')";
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
+				
+				$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$pageID', '$pageIteration', '1', '$newLinkID', '$menuEntry', 'index.php?page=$newTitle')";
+				mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
 			}
 		} elseif ($pageID == 1 AND $addToMenu==FALSE) {
 			//echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
@@ -70,18 +73,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 				//echo $query1;
 				$result1 = mysqli_query($cxn,$query1);
 				$row1 = mysqli_fetch_assoc($result1);
-				
 				$pageID = $row1['Page_ID'];
+				
+				$query3 = "SELECT `Menu_Entry` FROM `SubMenus` WHERE Page_ID=$pageID";
+				$result3 = mysqli_query($cxn,$query3);
+				$row3 = mysqli_fetch_assoc($result3);
+				$menuName = $row3['Menu_Entry'];
 				
 			} elseif ($_GET['pageID'] && $_GET['iteration']) {
 			
 				$pageID = $_GET['pageID'];
 				$pageIteration = $_GET['iteration'];
 				$query1 = "SELECT Title, Body, Page_ID, Page_Iteration, Last_Modified FROM Cust_Pages WHERE Page_ID=$pageID AND Page_Iteration=$pageIteration;";
-				echo $query1;
+				//echo $query1;
 				$result1 = mysqli_query($cxn,$query1);
 				$row1 = mysqli_fetch_assoc($result1);
 				//echo $query1;
+				
+				$query3 = "SELECT `Menu_Entry` FROM `SubMenus_BACKUP` WHERE Page_ID=$pageID AND Page_Iteration=$pageIteration";
+				$result3 = mysqli_query($cxn,$query3);
+				$row3 = mysqli_fetch_assoc($result3);
+				$menuName = $row3['Menu_Entry'];
 			}
 			
 			$query2 = "SELECT MAX(Page_Iteration) AS `Page_Iteration` FROM Cust_Pages WHERE Page_ID=$pageID";
@@ -89,15 +101,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 			$row2 = mysqli_fetch_assoc($result2);
 			$newPageIteration = $row2['Page_Iteration']+1;
 			$handle2 = "index.php?page=".$handle;
-			
-			$query3 = "SELECT `Menu_Entry` FROM `SubMenus` WHERE Page_ID=$pageID";
-			$result3 = mysqli_query($cxn,$query3);
-			$row3 = mysqli_fetch_assoc($result3);
 				
 			echo	"<h3>Edit Page</h3>\r\n
 			<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">\r\n
 			<table>\r\n
-			<tr><td>Menu Title: </td><td><input type=\"text\" size=\"20\" name=\"fmenuName\" value=\"{$row3['Menu_Entry']}\"></input></td></tr>\r\n
+			<tr><td>Menu Title: </td><td><input type=\"text\" size=\"20\" name=\"fmenuName\" value=\"$menuName\"></input></td></tr>\r\n
 			<tr><td>Add to Nav Bar?: </td><td><input type=\"checkbox\" id=\"faddToMenu\" name=\"faddToMenu\" checked ><label for=\"faddToMenu\">Check this if you want this Menu Title to be added to the Main Nav bar on the left</label></td></tr>\r\n
 			<tr><td>Page Title: </td><td><input type=\"text\" size=\"40\" value=\"{$row1['Title']}\" name=\"ftitle\"></input></td></tr>\r\n
 			<tr><td>Body: </td><td><textarea rows=5 cols=60 name=\"fbody\">{$row1['Body']}</textarea></td></tr>\r\n

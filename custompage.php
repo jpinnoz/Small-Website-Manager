@@ -43,6 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submitCode']=="New_Page") {
 				
 				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$maxID','$menuName','$url1')";
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
+				
+				$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$maxID', '1', '1', '$newID', '$menuName', '$url1')";
+				mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
 			}
 		} else {
 			$message .= "<br>Error inserting record";
