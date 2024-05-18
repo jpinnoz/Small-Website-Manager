@@ -31,18 +31,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 			$query3 = "UPDATE `SubMenus` SET `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'";
 			mysqli_query($cxn,$query3);
 		} elseif ($addToMenu==TRUE) {
+		
+			$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
+			$result3 = mysqli_query($cxn,$findMaxLinkID);
+			$row3 = mysqli_fetch_assoc($result3);
+			$newLinkID = $row3['LargestID'] + 1;
+			
 			if (!$cxn -> query("UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry', Active=1 WHERE `Page_ID`='$pageID'")) {
-				$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
-				$result3 = mysqli_query($cxn,$findMaxLinkID);
-				$row3 = mysqli_fetch_assoc($result3);
-				$newLinkID = $row3['LargestID'] + 1;
-				
+
 				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newLinkID','$pageID','$menuEntry','index.php?page=$newTitle')";
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
-				
-				$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$pageID', '$pageIteration', '1', '$newLinkID', '$menuEntry', 'index.php?page=$newTitle')";
-				mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
 			}
+			
+			$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$pageID', '$pageIteration', '1', '$newLinkID', '$menuEntry', 'index.php?page=$newTitle')";
+			mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
+			
 		} elseif ($pageID == 1 AND $addToMenu==FALSE) {
 			//echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
 			$message .= "You cannot remove the Home Page from the Navigation Bar<br>\r\n";
