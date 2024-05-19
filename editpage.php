@@ -1,67 +1,66 @@
 <?php
 include ("db_connect.inc");
 session_start();
-	include ("header.inc");
-	include ("navbar.inc");
-	echo "<article id='main'>\r\n";
+include ("header.inc");
+include ("navbar.inc");
+echo "<article id='main'>\r\n";
 	
 if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page") {
-		$newTitle = $_POST['ftitle'];
-		$oldTitle = $_POST['fOldTitle'];
-		$body = $_POST['fbody'];
-		$pageID = $_POST['fpage_ID'];
-		$pageIteration = $_POST['fpageIteration'];
-		$parentID = $_POST['fparentIteration'];
-		$menuEntry = $_POST['fmenuName'];
-		$addToMenu = $_POST['faddToMenu'];
-		$lastAuthor = $_SESSION['user_ID'];
+	$newTitle = $_POST['ftitle'];
+	$oldTitle = $_POST['fOldTitle'];
+	$body = $_POST['fbody'];
+	$pageID = $_POST['fpage_ID'];
+	$pageIteration = $_POST['fpageIteration'];
+	$parentID = $_POST['fparentIteration'];
+	$menuEntry = $_POST['fmenuName'];
+	$addToMenu = $_POST['faddToMenu'];
+	$lastAuthor = $_SESSION['user_ID'];
+	
+	//echo "<html><body>";
+	//echo "Test";
+	$query1 = "INSERT INTO `Cust_Pages`(`Title`, `Body`, `Page_ID`, `Page_Iteration`, `Parent_Iteration`, `Last_Author`) VALUES ('$newTitle','$body','$pageID','$pageIteration','$parentID','$lastAuthor')";
+	//echo $query1;
+	mysqli_query($cxn,$query1);
+	//echo "<p>";
+	
+	$query2 = "UPDATE Cust_Pages_DATA SET Page_Iteration=$pageIteration WHERE Page_ID=$pageID";
+	echo $query2;
+	mysqli_query($cxn,$query2);
+	
+	if ($pageID == 1 AND $addToMenu==TRUE) {
+		$query3 = "UPDATE `SubMenus` SET `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'";
+		mysqli_query($cxn,$query3);
+	} elseif ($addToMenu==TRUE) {
+	
+		$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
+		$result3 = mysqli_query($cxn,$findMaxLinkID);
+		$row3 = mysqli_fetch_assoc($result3);
+		$newLinkID = $row3['LargestID'] + 1;
 		
-		//echo "<html><body>";
-		//echo "Test";
-		$query1 = "INSERT INTO `Cust_Pages`(`Title`, `Body`, `Page_ID`, `Page_Iteration`, `Parent_Iteration`, `Last_Author`) VALUES ('$newTitle','$body','$pageID','$pageIteration','$parentID','$lastAuthor')";
-		//echo $query1;
-		mysqli_query($cxn,$query1);
-		//echo "<p>";
-		
-		$query2 = "UPDATE Cust_Pages_DATA SET Page_Iteration=$pageIteration WHERE Page_ID=$pageID";
-		echo $query2;
-		mysqli_query($cxn,$query2);
-		
-		if ($pageID == 1 AND $addToMenu==TRUE) {
-			$query3 = "UPDATE `SubMenus` SET `Menu_Entry`='$menuEntry' WHERE `Page_ID`='$pageID'";
-			mysqli_query($cxn,$query3);
-		} elseif ($addToMenu==TRUE) {
-		
-			$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
-			$result3 = mysqli_query($cxn,$findMaxLinkID);
-			$row3 = mysqli_fetch_assoc($result3);
-			$newLinkID = $row3['LargestID'] + 1;
-			
-			if (!$cxn -> query("UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry', Active=1 WHERE `Page_ID`='$pageID'")) {
+		if (!$cxn -> query("UPDATE `SubMenus` SET `Title`='index.php?page=$newTitle', `Menu_Entry`='$menuEntry', Active=1 WHERE `Page_ID`='$pageID'")) {
 
-				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newLinkID','$pageID','$menuEntry','index.php?page=$newTitle')";
-				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
-			}
-			
-			$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$pageID', '$pageIteration', '1', '$newLinkID', '$menuEntry', 'index.php?page=$newTitle')";
-			mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
-			
-		} elseif ($pageID == 1 AND $addToMenu==FALSE) {
-			//echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
-			$message .= "You cannot remove the Home Page from the Navigation Bar<br>\r\n";
-		} elseif ($addToMenu==FALSE) {
-			//$query3 = "DELETE FROM `SubMenus` WHERE Title='index.php?page=$oldTitle'";
-			$query3 = "UPDATE `SubMenus` SET Active=0 WHERE Page_ID=$pageID";		
-			mysqli_query($cxn,$query3);
+			$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newLinkID','$pageID','$menuEntry','index.php?page=$newTitle')";
+			mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
 		}
 		
-		$pageTitle = preg_replace('/ /', '_', $newTitle);
-		$location = "Location: index.php?page=$pageTitle";
-		header($location);
-		die();
+		$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$pageID', '$pageIteration', '1', '$newLinkID', '$menuEntry', 'index.php?page=$newTitle')";
+		mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
+		
+	} elseif ($pageID == 1 AND $addToMenu==FALSE) {
+		//echo "<div class='error'>You cannot remove the Home Page from the Navigation Bar</div>\r\n";
+		$message .= "You cannot remove the Home Page from the Navigation Bar<br>\r\n";
+	} elseif ($addToMenu==FALSE) {
+		//$query3 = "DELETE FROM `SubMenus` WHERE Title='index.php?page=$oldTitle'";
+		$query3 = "UPDATE `SubMenus` SET Active=0 WHERE Page_ID=$pageID";		
+		mysqli_query($cxn,$query3);
+	}
+	
+	$pageTitle = preg_replace('/ /', '_', $newTitle);
+	$location = "Location: index.php?page=$pageTitle";
+	header($location);
+	die();
 } else {
 
-	
 	$result1 ="";
 	$query1 ="";
 	if (isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESSION['auth_lev']==3 ) {
@@ -124,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode'] == "Edit_Page"
 			echo "<div class='error'>Page not specified</div>";		
 		}
 	} else {
-		echo "<div class='error'>Unauthorized Access</div>";
+		echo "<div class='error'>Restricted Area. You need administrative priviledges to access this page.</div>";
 	}
 
 }

@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submitCode']=="New_Page") {
 		<input type=\"submit\" name=\"Button\" value=\"Submit\" />\r\n
 		</form>";
 	} else {
-		echo "Restricted Area. You need administrative priviledges to access this page.";
+		echo "<div class=\"error\">Restricted Area. You need administrative priviledges to access this page.</div>";
 	}
 		
 	echo "</article>\r\n";

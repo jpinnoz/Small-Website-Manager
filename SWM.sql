@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2024 at 07:30 AM
+-- Generation Time: May 19, 2024 at 06:20 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.7
 
@@ -47,7 +47,11 @@ INSERT INTO `Cust_Pages` (`Page_ID`, `Page_Iteration`, `Parent_Iteration`, `Titl
 (1, 1, 0, 'Welcome', 'This is the homepage!', '2024-05-17 17:21:52', 35),
 (2, 1, 0, 'Page 2', 'Testaroo!', '2024-05-17 17:29:01', 35),
 (2, 2, 1, 'Page 2', 'Version 2', '2024-05-17 17:29:32', 35),
-(2, 3, 1, 'Page 2', 'Testaroo! Testaroo!', '2024-05-17 17:29:54', 35);
+(2, 3, 1, 'Page 2', 'Testaroo! Testaroo!', '2024-05-17 17:29:54', 35),
+(2, 4, 1, 'Page 2', 'Testaroo! Yeah!', '2024-05-18 10:49:34', 35),
+(2, 5, 4, 'Page 2', 'Testaroo! Double Yeah!', '2024-05-19 13:42:06', 35),
+(3, 1, 0, 'Page 3', 'Testin!', '2024-05-19 13:29:44', 35),
+(4, 1, 0, 'Page 4', 'Page 4', '2024-05-19 13:35:50', 35);
 
 -- --------------------------------------------------------
 
@@ -67,7 +71,9 @@ CREATE TABLE `Cust_Pages_DATA` (
 
 INSERT INTO `Cust_Pages_DATA` (`Page_ID`, `Page_Iteration`, `Active`) VALUES
 (1, 1, 1),
-(2, 3, 1);
+(2, 5, 1),
+(3, 1, 1),
+(4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -86,7 +92,8 @@ CREATE TABLE `Globals` (
 
 INSERT INTO `Globals` (`Global`, `Value`) VALUES
 ('Website Name', 'Small Website Manager'),
-('URL', 'https://www.joepinzone.com');
+('URL', 'https://www.joepinzone.com'),
+('Site Email Address', 'jpinnoz@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -173,7 +180,9 @@ CREATE TABLE `SubMenus` (
 
 INSERT INTO `SubMenus` (`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`, `Active`) VALUES
 (1, 1, 1, 'Home', 'index.php', 1),
-(1, 2, 2, 'Page 2', 'index.php?page=Page 2', 1);
+(1, 2, 2, 'Page 2.1', 'index.php?page=Page 2', 1),
+(1, 3, 3, 'Page 3', 'index.php?page=Page 3', 1),
+(1, 4, 4, 'Page 4', 'index.php?page=Page 4', 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +227,11 @@ CREATE TABLE `SubMenus_BACKUP` (
 
 INSERT INTO `SubMenus_BACKUP` (`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES
 (1, 1, 1, 1, 'Home', 'index.php'),
-(2, 1, 1, 2, 'Page 2', 'index.php?page=Page 2');
+(2, 1, 1, 2, 'Page 2', 'index.php?page=Page 2'),
+(2, 4, 1, 3, 'Page 2', 'index.php?page=Page 2'),
+(3, 1, 1, 3, 'Page 3', 'index.php?page=Page 3'),
+(4, 1, 1, 4, 'Page 4', 'index.php?page=Page 4'),
+(2, 5, 1, 5, 'Page 2.1', 'index.php?page=Page 2');
 
 -- --------------------------------------------------------
 
@@ -249,7 +262,83 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`ID`, `First_Name`, `Last_Name`, `eMail`, `User_Name`, `Password`, `Activate_Pass`, `Change_Pass`, `Change_Pass_Expire`, `Forgot_Pass`, `Forgot_Pass_Expire`, `DateTime_Joined`, `Last_Logged`, `Authority_Level`, `Active`) VALUES
-(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-17 17:28:36', 3, 1);
+(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-19 13:29:29', 3, 1),
+(36, 'Joe', 'Two', 'jpinnoz@gmail.com', 'j2', '$2y$10$czGIkjxlCFYMqxRXZRKxDORQHYAdn0C6ARxB66/.omnawGLYVqzfy', '$2y$10$GmmrTa7nO0nbuQbclfS0zuq92u9uI4jKSdZ7gUt0CtKQX6DB.GAEO', NULL, NULL, NULL, NULL, '2024-05-19 15:49:43', '2024-05-19 15:56:40', 1, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Cust_Pages`
+--
+ALTER TABLE `Cust_Pages`
+  ADD UNIQUE KEY `Page_ID` (`Page_ID`,`Page_Iteration`);
+
+--
+-- Indexes for table `News`
+--
+ALTER TABLE `News`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID` (`ID`);
+
+--
+-- Indexes for table `News_Comments`
+--
+ALTER TABLE `News_Comments`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PID` (`News_Article`),
+  ADD KEY `ID` (`ID`,`News_Article`);
+
+--
+-- Indexes for table `SubMenus`
+--
+ALTER TABLE `SubMenus`
+  ADD PRIMARY KEY (`LinkID`,`MenuID`),
+  ADD KEY `MenuID` (`MenuID`,`LinkID`);
+
+--
+-- Indexes for table `SubMenusData`
+--
+ALTER TABLE `SubMenusData`
+  ADD UNIQUE KEY `Title` (`Type`);
+
+--
+-- Indexes for table `Users`
+--
+ALTER TABLE `Users`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD UNIQUE KEY `User_Name` (`User_Name`) USING HASH,
+  ADD UNIQUE KEY `eMail` (`eMail`) USING HASH;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Cust_Pages`
+--
+ALTER TABLE `Cust_Pages`
+  MODIFY `Page_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `News`
+--
+ALTER TABLE `News`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `News_Comments`
+--
+ALTER TABLE `News_Comments`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `Users`
+--
+ALTER TABLE `Users`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

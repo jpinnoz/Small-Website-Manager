@@ -65,10 +65,16 @@ if ($_GET['username'] AND $_GET['temppass']) {
 		// Always set content-type when sending HTML email
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-		$headers .= 'From: <jpinnoz@gmail.com>' . "\r\n";
+
+		$query3 = "SELECT Value FROM Globals WHERE Global='Site Email Address'";
+		$result3 = mysqli_query($cxn,$query3);
+		$row3 = mysqli_fetch_assoc($result3);
+		$siteEmail = $row3['Value'];
+
+		$headers .= 'From: <{$siteEmail}>' . "\r\n";
 		
 		$mailResult = mail($emailAddress,$subject,$eMailMessage,$headers);
-		echo "Email address: ".htmlentities($emailAddress)."<br>";
+		//echo "Email address: ".htmlentities($emailAddress)."<br>";
 		//echo $subject."<br>";
 		//echo $eMailMessage."<br>";
 		//echo $headers."<br>";

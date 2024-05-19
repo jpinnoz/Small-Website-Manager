@@ -1,6 +1,9 @@
 <?php
 include ("db_connect.inc");
 session_start();
+include ("header.inc");
+include ("navbar.inc");
+	
 if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Forgot_Pass_Send_Email") {
 	if ($_POST['Button']=="Send Email") {
 		
@@ -50,7 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Forgot_Pass_
 		
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-		$headers .= 'From: <jpinnoz@gmail.com>' . "\r\n";
+
+		$query3 = "SELECT Value FROM Globals WHERE Global='Site Email Address'";
+		$result3 = mysqli_query($cxn,$query3);
+		$row3 = mysqli_fetch_assoc($result3);
+		$siteEmail = $row3['Value'];
+
+		$headers .= 'From: <{$siteEmail}>' . "\r\n";
 		
 		mail($to,$subject,$message,$headers);
 
@@ -99,15 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Forgot_Pass_
 	$changePassExpire = $row1['Forgot_Pass_Expire'];
 		
 	$tempPass = $_GET['temppass'];
-	
-	include ("header.inc");
-	include ("navbar.inc");
-	
+
+	echo "<article id='main'>";
 	if (password_verify($tempPass, $changePass)) {
 		if ($changePassExpire > date('Y-m-d H:i:s')) {
-			
 			echo "
-			<article id='main'>
 			<h3>Change Password</h3>
 			<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
 			<table>
@@ -118,43 +123,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Forgot_Pass_
 			<input type=\"hidden\" id=\"tempPass\" name=\"tempPass\" value=\"".$tempPass."\">
 			<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Change_Pass\">
 			<input type=\"submit\" name=\"Button\" value=\"Update\" />
-			</form>
-			<br>
-			</article\r\n";
+			</form>";
 		} else {
-			echo "<article id='main'>";
-			echo "You timed out!<p>";
+			echo "<div class='error'>You timed out!</div>";
 			//echo "Time out: ".$changePassExpire."<p>";
 			//echo "Now: ".date('Y-m-d H:i:s')."<p></div>";
-			echo "</article>";
 		}
 	} else {
-		echo "<article id='main'>";
-		echo "Temporary password incorrect";
-		echo "</article>";
+		echo "<div class='error'>Temporary password incorrect</div>";		
 	}
-			
+	echo "</article>";
 	include ("footer.inc");
 
 } else {
 	
-	include ("header.inc");
-	include ("navbar.inc");
-	
-	echo "<article id='main'>
-	<h3>Forgotten Password</h3>
-	You will be sent a confirmation email.<br>
-	You must confirm by clicking on the link in the email.<br>
-	Then you will be able to enter your new password.
-	<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
-	<table>
-	<tr><td>eMail: </td><td><input type=\"text\" name=\"femail\"></input></td></tr>
-	</table>
-	<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Forgot_Pass_Send_Email\">
-	<input type=\"submit\" name=\"Button\" value=\"Send Email\" />
-	<input type=\"submit\" name=\"Button\" value=\"Cancel\" />
-	</form>
-	</article>";
+	echo "<article id='main'>";
+	if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESSION['auth_lev']==3 ) {
+		echo "<h3>Forgotten Password</h3>
+		You will be sent a confirmation email.<br>
+		You must confirm by clicking on the link in the email.<br>
+		Then you will be able to enter your new password.
+		<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
+		<table>
+		<tr><td>eMail: </td><td><input type=\"text\" name=\"femail\"></input></td></tr>
+		</table>
+		<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Forgot_Pass_Send_Email\">
+		<input type=\"submit\" name=\"Button\" value=\"Send Email\" />
+		<input type=\"submit\" name=\"Button\" value=\"Cancel\" />
+		</form>";
+	} else {
+		echo "<div class=\"error\">Restricted Area. You need administrative priviledges to access this page.</div>";
+	}	
+	echo "</article>";
 	
 	include ("footer.inc");
 }

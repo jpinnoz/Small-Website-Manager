@@ -45,7 +45,11 @@ if (isset($_SESSION['user_name']) AND $_SESSION['auth_lev'] >= 1) {
 	echo "<span style='text-align:right; margin-bottom: 0%;'>";
 	echo "<nav id='hnav1' style='margin-bottom: 0%;'>\r\n";
 	echo "<a href='usersettings.php' style='margin-bottom: 0%;'>User Settings</a>\r\n";
-	echo "<a href='sitesettings.php' style='margin-bottom: 0%;'>Site Settings</a>\r\n";
+	
+	if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESSION['auth_lev']==3 ) {
+		echo "<a href='sitesettings.php' style='margin-bottom: 0%;'>Site Settings</a>\r\n";
+	}
+	
 	echo "</span>";
 	echo "<span style='text-align:right; margin-bottom: 0'>";
 	//echo "<a href='index.php?go=logout'>Log Out</a>\r\n";

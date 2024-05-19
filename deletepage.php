@@ -20,7 +20,7 @@ if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESS
 			$pageID = $row2['Page_ID'];
 			
 			if ($pageID == 1) {
-				echo "<div class='message'>Cannot Delete Home Page. Edit instead.</div>";
+				echo "<div class='error'>Cannot Delete Home Page. Edit instead.</div>";
 			} else {
 
 				$query1 = "UPDATE Cust_Pages_DATA SET Active=0 WHERE Page_ID=$pageID";

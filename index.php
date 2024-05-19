@@ -37,7 +37,7 @@ include ("navbar.inc");
 
 echo "<article id='main' style='margin-top: 0%'>";
 
-echo "<div class='message'>$message</div>\r\n";
+echo "<div class='message'>$message</div><p>\r\n";
 
 if ($_GET["page"]) {
 	$handle = htmlspecialchars_decode($_GET["page"]);

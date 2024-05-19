@@ -49,7 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Temp_Pass") 
 		// Always set content-type when sending HTML email
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-		$headers .= 'From: <jpinnoz@gmail.com>' . "\r\n";
+		
+		$query3 = "SELECT Value FROM Globals WHERE Global='Site Email Address'";
+		$result3 = mysqli_query($cxn,$query3);
+		$row3 = mysqli_fetch_assoc($result3);
+		$siteEmail = $row3['Value'];
+
+		$headers .= 'From: <{$siteEmail}>' . "\r\n";
 		
 		mail($to,$subject,$message,$headers);
 
@@ -99,13 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Temp_Pass") 
 	
 	include ("header.inc");
 	include ("navbar.inc");
+	echo "<article id='main'>";
 	
 	if (password_verify($tempPass, $changePass)) {
 	//if ($_GET['temppass'] == $changePass) {
 		if ($changePassExpire > date('Y-m-d H:i:s')) {
 			
 			echo "
-			<article id='main'>
 			<h3>Change Password</h3>
 			<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
 			<table>
@@ -116,19 +122,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Temp_Pass") 
 			<input type=\"hidden\" id=\"tempPass\" name=\"tempPass\" value=\"".$tempPass."\">
 			<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Change_Pass\">
 			<input type=\"submit\" name=\"Button\" value=\"Update\" />
-			</form>
-			<br>
-			</article>\r\n";
+			</form>";
 		} else {
-			echo "<article id='main'>";
+			echo "<div class='error'>\r\n";
 			echo "You timed out!<p>";
 			echo "Time out: ".$changePassExpire."<p>";
-			echo "Now: ".date('Y-m-d H:i:s')."<p></article>";
+			echo "Now: ".date('Y-m-d H:i:s')."</div>";
 		}
 	} else {
-		echo "Temporary password incorrect";
+		echo "<div class='error'>Temporary password incorrect</div>";
 	}
-			
+	
+	echo "</article>";
 	include ("footer.inc");
 
 } else {
@@ -138,20 +143,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Temp_Pass") 
 	
 	echo "<article id='main'>";
 
-	$query = "SELECT `eMail` FROM `Users` WHERE `ID`='".$_SESSION['user_ID']."'";
-	$result = mysqli_query($cxn,$query);
-	$row = mysqli_fetch_assoc($result);
-	$email = $row['eMail'];
-	echo "
-	<h3>Change Password</h3>
-	A confirmation email will be sent to: $email<p>
-	You must confirm by clicking on the link in the email. Then you will be able to enter your new password.";
-	echo "<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
-	<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Temp_Pass\">
-	<input type=\"hidden\" id=\"eMail\" name=\"eMail\" value=\"$email\">
-	<input type=\"submit\" name=\"Button\" value=\"Send Email\" />
-	<input type=\"submit\" name=\"Button\" value=\"Cancel\" />
-	</form>";
+	if (isset($_SESSION['user_name'])) {
+		$query = "SELECT `eMail` FROM `Users` WHERE `ID`='".$_SESSION['user_ID']."'";
+		$result = mysqli_query($cxn,$query);
+		$row = mysqli_fetch_assoc($result);
+		$email = $row['eMail'];
+	
+		echo "
+		<h3>Change Password</h3>
+		A confirmation email will be sent to: $email<p>
+		You must confirm by clicking on the link in the email. Then you will be able to enter your new password.";
+		echo "<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
+		<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Temp_Pass\">
+		<input type=\"hidden\" id=\"eMail\" name=\"eMail\" value=\"$email\">
+		<input type=\"submit\" name=\"Button\" value=\"Send Email\" />
+		<input type=\"submit\" name=\"Button\" value=\"Cancel\" />
+		</form>";
+	} else {
+		echo "<div class=\"error\">Restricted Area. You need administrative priviledges to access this page.</div>";
+	}
+	
 	echo "</article>";
 	include ("footer.inc");
 }

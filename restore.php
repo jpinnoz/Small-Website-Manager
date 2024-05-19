@@ -55,7 +55,7 @@ if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESS
 	}
 	
 } else {
-	echo "<div class='message'>Restricted Area. You need administrative priviledges to access this page.</div>\r\n";
+	echo "<div class='error'>Restricted Area. You need administrative priviledges to access this page.</div>\r\n";
 }
 
 echo "</article>\r\n";
