@@ -59,7 +59,7 @@ $result = mysqli_query($cxn,$query) or die ("Couldn't execute query.");
 if ($row = mysqli_fetch_assoc($result))
 {
 	if ($_GET["pageID"] AND $_GET["iteration"]) {
-		echo "<h4>Note: This web page is not the current <span style=\"text-decoration: underline;\">active</span> one. If you however wish to revert to this page, click \"Edit Page\".</h4>";
+		echo "<h4>Note: This web page is not the current <span style=\"text-decoration: underline;\">active</span> one. If you however wish to revert to this page, click \"Restore\" or you can \"Edit Page\".</h4>";
 	}
 	echo	"<h1>{$row['Title']}</h1>\r\n";
 	echo	"<p>\r\n";

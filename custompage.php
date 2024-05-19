@@ -39,12 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['submitCode']=="New_Page") {
 				$findMaxLinkID = "SELECT MAX(LinkID) AS `LargestID` FROM `SubMenus` WHERE `MenuID`=1";
 				$result2 = mysqli_query($cxn,$findMaxLinkID);
 				$row2 = mysqli_fetch_assoc($result2);
-				$newID = $row2['LargestID'] + 1;
+				$newLinkID = $row2['LargestID'] + 1;
 				
-				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newID','$maxID','$menuName','$url1')";
+				$newMenuItem = "INSERT INTO `SubMenus`(`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`) VALUES ('1','$newLinkID','$maxID','$menuName','$url1')";
 				mysqli_query($cxn,$newMenuItem) or die ("Couldn't execute query.");
 				
-				$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$maxID', '1', '1', '$newID', '$menuName', '$url1')";
+				$newMenuItemBackup = "INSERT INTO `SubMenus_BACKUP`(`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`, `Menu_Entry`, `Title`) VALUES ('$maxID', '1', '1', '$newLinkID', '$menuName', '$url1')";
 				mysqli_query($cxn,$newMenuItemBackup) or die ("Couldn't execute query.");
 			}
 		} else {
