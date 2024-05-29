@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 19, 2024 at 06:20 AM
+-- Generation Time: May 29, 2024 at 08:13 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.7
 
@@ -262,8 +262,7 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`ID`, `First_Name`, `Last_Name`, `eMail`, `User_Name`, `Password`, `Activate_Pass`, `Change_Pass`, `Change_Pass_Expire`, `Forgot_Pass`, `Forgot_Pass_Expire`, `DateTime_Joined`, `Last_Logged`, `Authority_Level`, `Active`) VALUES
-(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-19 13:29:29', 3, 1),
-(36, 'Joe', 'Two', 'jpinnoz@gmail.com', 'j2', '$2y$10$czGIkjxlCFYMqxRXZRKxDORQHYAdn0C6ARxB66/.omnawGLYVqzfy', '$2y$10$GmmrTa7nO0nbuQbclfS0zuq92u9uI4jKSdZ7gUt0CtKQX6DB.GAEO', NULL, NULL, NULL, NULL, '2024-05-19 15:49:43', '2024-05-19 15:56:40', 1, 1);
+(35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-19 13:29:29', 3, 1);
 
 --
 -- Indexes for dumped tables
@@ -287,7 +286,6 @@ ALTER TABLE `News`
 --
 ALTER TABLE `News_Comments`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `PID` (`News_Article`),
   ADD KEY `ID` (`ID`,`News_Article`);
 
 --
@@ -296,12 +294,6 @@ ALTER TABLE `News_Comments`
 ALTER TABLE `SubMenus`
   ADD PRIMARY KEY (`LinkID`,`MenuID`),
   ADD KEY `MenuID` (`MenuID`,`LinkID`);
-
---
--- Indexes for table `SubMenusData`
---
-ALTER TABLE `SubMenusData`
-  ADD UNIQUE KEY `Title` (`Type`);
 
 --
 -- Indexes for table `Users`
