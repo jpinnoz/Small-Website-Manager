@@ -15,15 +15,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="User_Name" A
 		$newUserName = $_POST['fusername'];
 			
 		if ($oldUserName == $newUserName) {
-			$url1 = "usersettings.php";
-			$location = "Location: ".$url1;
-			header($location);
-			die();
+			$errormessage .= "<div class='error'>You didn't change the Username!</div><p>\r\n";
 		} else {
 			$query1 = "SELECT `User_Name` FROM `Users` WHERE `User_Name`='$newUserName'";
 			$result1 = mysqli_query($cxn,$query1);
 			if ($row1 = mysqli_fetch_assoc($result1)) {
-				echo "<div class='error'>Username \"$newUserName\" already taken! Please enter another user name...</div>";
+				$errormessage .= "<div class='error'>Username \"$newUserName\" already taken! Please enter another user name...</div>\r\n";
+			} elseif ($newUserName == "") {
+				$errormessage .= "<div class='error'>You didn't enter anything!</div><p>\r\n";
+			} elseif (preg_match('#^[A-Za-z0-9_-]{3,20}$#s', $newUserName)	 == FALSE) {
+				$errormessage .= "<div class='error'>You can only use letters, numbers, underscores or hyphens! Minumum length is 3 and maximum length is 20!</div><p>\r\n";
 			} else {
 				$query2 = "UPDATE `Users` SET `User_Name`='$newUserName' WHERE `User_Name`='$oldUserName'";
 				mysqli_query($cxn,$query2);
@@ -46,7 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="User_Name" A
 if (isset($_SESSION['user_name'])) {
 	$userName = $_SESSION['user_name'];
 
-	echo "<h3>User Name</h3>\n\r
+	echo "$errormessage\n\r
+	<h3>User Name</h3>\n\r
 	<div>\n\r
 	<form action='".htmlentities($_SERVER['PHP_SELF'])."' method='post'>\n\r
 	<table>\n\r
