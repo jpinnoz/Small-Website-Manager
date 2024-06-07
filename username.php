@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="User_Name" A
 				$errormessage .= "<div class='error'>Username \"$newUserName\" already taken! Please enter another user name...</div>\r\n";
 			} elseif ($newUserName == "") {
 				$errormessage .= "<div class='error'>You didn't enter anything!</div><p>\r\n";
-			} elseif (preg_match('#^[A-Za-z0-9_-]{3,20}$#s', $newUserName)	 == FALSE) {
+			} elseif (preg_match('#^[A-Za-z0-9_-]{3,20}$#s', $newUserName) == FALSE) {
 				$errormessage .= "<div class='error'>You can only use letters, numbers, underscores or hyphens! Minumum length is 3 and maximum length is 20!</div><p>\r\n";
 			} else {
 				$query2 = "UPDATE `Users` SET `User_Name`='$newUserName' WHERE `User_Name`='$oldUserName'";
