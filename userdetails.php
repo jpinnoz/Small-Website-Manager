@@ -4,9 +4,7 @@ session_start();
 
 include ("header.inc");
 include ("navbar.inc");
-?>
-<article id='main'>
-<?php
+echo "<article id='main'>";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="User_Details" AND isset($_SESSION['user_name'])) {
 	if ($_POST['Button']=="Update") {
@@ -14,8 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="User_Details
 		$lastName = $_POST['flastname'];
 		$userName = $_SESSION['user_name'];
 		
-		if (!preg_match("/^[A-Za-z\-\'\ ]{1,50}$/", $firstName) OR !preg_match("/^[A-Za-z\-\'\ ]{1,50}$/", $lastName)) {
-			$errormessage .= "<div class='error'>You may only use letters, hyphens or apostraphes! Minumum length is 1, maximum length is 50!</div><p>\r\n";
+		if (!preg_match("/^[A-Za-z\-\'\ ]{1,100}$/", $firstName) OR !preg_match("/^[A-Za-z\-\'\ ]{1,100}$/", $lastName)) {
+			$errormessage .= "<div class='error'>You may only use letters, hyphens or apostraphes! Minumum length is 1, maximum length is 100!</div><p>\r\n";
 		} else {
 			$query2 = "UPDATE `Users` SET `First_Name`='$firstName',`Last_Name`='$lastName' WHERE `User_Name`='$userName'";
 			mysqli_query($cxn,$query2);
@@ -60,8 +58,7 @@ if (isset($_SESSION['user_name'])) {
 	echo "<div class='error'>This is a restricted area. You must log in to access!</div>";
 }
 
-?>
-</article>
-<?php
+echo "</article>";
+
 include ("footer.inc");
 ?>
