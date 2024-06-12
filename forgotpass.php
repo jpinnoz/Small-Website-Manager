@@ -136,26 +136,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Forgot_Pass_
 	include ("footer.inc");
 
 } else {
-	
 	echo "<article id='main'>";
-	if ( isset($_SESSION['first_name']) AND isset($_SESSION['user_name']) AND $_SESSION['auth_lev']==3 ) {
-		echo "<h3>Forgotten Password</h3>
-		You will be sent a confirmation email.<br>
-		You must confirm by clicking on the link in the email.<br>
-		Then you will be able to enter your new password.
-		<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
-		<table>
-		<tr><td>eMail: </td><td><input type=\"text\" name=\"femail\"></input></td></tr>
-		</table>
-		<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Forgot_Pass_Send_Email\">
-		<input type=\"submit\" name=\"Button\" value=\"Send Email\" />
-		<input type=\"submit\" name=\"Button\" value=\"Cancel\" />
-		</form>";
-	} else {
-		echo "<div class=\"error\">Restricted Area. You need administrative priviledges to access this page.</div>";
-	}	
+	echo "<h3>Forgotten Password</h3>
+	You will be sent a confirmation email.<br>
+	You must confirm by clicking on the link in the email.<br>
+	Then you will be able to enter your new password.
+	<form action='".htmlentities($_SERVER['PHP_SELF'])."' method=\"post\">
+	<table>
+	<tr><td>eMail: </td><td><input type=\"text\" name=\"femail\"></input></td></tr>
+	</table>
+	<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Forgot_Pass_Send_Email\">
+	<input type=\"submit\" name=\"Button\" value=\"Send Email\" />
+	<input type=\"submit\" name=\"Button\" value=\"Cancel\" />
+	</form>";
 	echo "</article>";
-	
 	include ("footer.inc");
 }
 ?>

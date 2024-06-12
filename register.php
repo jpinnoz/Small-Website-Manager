@@ -25,8 +25,9 @@ if ($_GET['username'] AND $_GET['temppass']) {
 	$firstName = $_POST['ffirstname'];
 	$lastName = $_POST['flastname'];
 	$username = $_POST['fusername'];
-	$password = $_POST['fpassword'];
-	$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+	$passwordA = $_POST['fpasswordA'];
+	$passwordB = $_POST['fpasswordB'];	
+	$hashed_password = password_hash($passwordA, PASSWORD_DEFAULT);
 	$emailAddress = $_POST['femail'];
 	$error_style = "style='background-color:pink'";
 	$err_count = 0;
@@ -46,16 +47,28 @@ if ($_GET['username'] AND $_GET['temppass']) {
 		$fusername_style=$error_style;
 		$message .= "<div class='error'>Username input ERROR: You may only use letters, numbers, hyphens or underscores! Minumum length is 3, maximum length is 100!</div><p>\r\n";		
 	}
-	if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,15}$/', $password)) {
+	if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,15}$/', $passwordA)) {
 		$err_count++;
-		$fpassword_style=$error_style;
-		$message .= "<div class='error'>Password input ERROR: You may only use letters, numbers, or special characters (!@#$%)! Minumum length is 8, maximum length is 15!</div><p>\r\n";
+		$fpasswordA_style=$error_style;
+		$message .= "<div class='error'>Password A input ERROR: You may only use letters, numbers, or special characters (!@#$%)! Minumum length is 8, maximum length is 15!</div><p>\r\n";
+		//Must contain at least 1 number and 1 letter
+	}
+	if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,15}$/', $passwordB)) {
+		$err_count++;
+		$fpasswordB_style=$error_style;
+		$message .= "<div class='error'>Password B input ERROR: You may only use letters, numbers, or special characters (!@#$%)! Minumum length is 8, maximum length is 15!</div><p>\r\n";
 		//Must contain at least 1 number and 1 letter
 	}
 	if (!preg_match('/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/', $emailAddress)) {
 		$err_count++;
 		$femail_style=$error_style;
 		$message .= "<div class='error'>Email Address input ERROR: You may only use letters, numbers, or periods!</div><p>\r\n";	
+	}
+	if ($passwordA !== $passwordB) {
+		$err_count++;
+		$fpasswordA_style=$error_style;
+		$fpasswordB_style=$error_style;
+		$message .= "<div class='error'>Passwords do not match. Enter the password twice correctly!</div><p>\r\n";	
 	}
 	if ($err_count==0) {
 	 
@@ -135,8 +148,9 @@ if ($registrationAttempt==true) {
 	<tr><td>First Name: </td><td><input $ffirstname_style type=\"text\" name=\"ffirstname\" value=\"$firstName\"></input></td></tr>\r\n
 	<tr><td>Last Name: </td><td><input $flastname_style type=\"text\" name=\"flastname\" value=\"$lastName\"></input></td></tr>\r\n
 	<tr><td>Username: </td><td><input $fusername_style type=\"text\" name=\"fusername\" value=\"$username\"></input></td></tr>\r\n
-	<tr><td>Password: </td><td><input $fpassword_style type=\"password\" name=\"fpassword\" value=\"$password\"></input></td></tr>\r\n
 	<tr><td>eMail: </td><td><input $femail_style type=\"text\" name=\"femail\" value=\"$emailAddress\"></input></td></tr>\r\n
+	<tr><td>Enter Password: </td><td><input $fpasswordA_style type=\"password\" name=\"fpasswordA\" value=\"$passwordA\"></input></td></tr>\r\n
+	<tr><td>Re-enter Password: </td><td><input $fpasswordB_style type=\"password\" name=\"fpasswordB\" value=\"$passwordB\"></input></td></tr>\r\n
 	</table>\r\n
 	<input type=\"hidden\" id=\"submitCode\" name=\"submitCode\" value=\"Register\">\r\n
 	<input type=\"submit\" name=\"Button\" value=\"Register\" />\r\n
