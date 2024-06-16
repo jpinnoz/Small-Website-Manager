@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2024 at 03:28 AM
+-- Generation Time: Jun 16, 2024 at 07:48 AM
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.7
 
@@ -51,7 +51,8 @@ INSERT INTO `Cust_Pages` (`Page_ID`, `Page_Iteration`, `Parent_Iteration`, `Titl
 (2, 4, 1, 'Page 2', 'Testaroo! Yeah!', '2024-05-18 10:49:34', 35),
 (2, 5, 4, 'Page 2', 'Testaroo! Double Yeah!', '2024-05-19 13:42:06', 35),
 (3, 1, 0, 'Page 3', 'Testin!', '2024-05-19 13:29:44', 35),
-(4, 1, 0, 'Page 4', 'Page 4', '2024-05-19 13:35:50', 35);
+(4, 1, 0, 'Page 4', 'Page 4', '2024-05-19 13:35:50', 35),
+(5, 1, 0, 'Page 5', 'Batman was here!', '2024-06-12 19:00:20', 37);
 
 -- --------------------------------------------------------
 
@@ -73,7 +74,8 @@ INSERT INTO `Cust_Pages_DATA` (`Page_ID`, `Page_Iteration`, `Active`) VALUES
 (1, 1, 1),
 (2, 5, 1),
 (3, 1, 1),
-(4, 1, 1);
+(4, 1, 1),
+(5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -182,7 +184,8 @@ INSERT INTO `SubMenus` (`MenuID`, `LinkID`, `Page_ID`, `Menu_Entry`, `Title`, `A
 (1, 1, 1, 'Home', 'index.php', 1),
 (1, 2, 2, 'Page 2.1', 'index.php?page=Page 2', 1),
 (1, 3, 3, 'Page 3', 'index.php?page=Page 3', 1),
-(1, 4, 4, 'Page 4', 'index.php?page=Page 4', 1);
+(1, 4, 4, 'Page 4', 'index.php?page=Page 4', 1),
+(1, 5, 5, 'Page 5', 'index.php?page=Page 5', 0);
 
 -- --------------------------------------------------------
 
@@ -231,7 +234,8 @@ INSERT INTO `SubMenus_BACKUP` (`Page_ID`, `Page_Iteration`, `Menu_ID`, `Link_ID`
 (2, 4, 1, 3, 'Page 2', 'index.php?page=Page 2'),
 (3, 1, 1, 3, 'Page 3', 'index.php?page=Page 3'),
 (4, 1, 1, 4, 'Page 4', 'index.php?page=Page 4'),
-(2, 5, 1, 5, 'Page 2.1', 'index.php?page=Page 2');
+(2, 5, 1, 5, 'Page 2.1', 'index.php?page=Page 2'),
+(5, 1, 1, 5, 'Page 5', 'index.php?page=Page 5');
 
 -- --------------------------------------------------------
 
@@ -275,7 +279,7 @@ CREATE TABLE `Users` (
 
 INSERT INTO `Users` (`ID`, `First_Name`, `Last_Name`, `eMail`, `User_Name`, `Password`, `Activate_Pass`, `Change_Pass`, `Change_Pass_Expire`, `Forgot_Pass`, `Forgot_Pass_Expire`, `DateTime_Joined`, `Last_Logged`, `Authority_Level`, `Active`) VALUES
 (35, 'First_Name', 'Family_Name', 'jpinnoz@yahoo.com', 'admin2', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-05-29 18:26:25', 3, 1),
-(37, 'First Name', 'Family Name', 'jpinnoz@gmail.com', 'admin', '$2y$10$eZK.6hAn.eqdDx1uuKU/tee4jzLRWzknnCgvsNN7DQh9rM20V4Zey', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-06-07 16:13:25', 3, 1);
+(37, 'First Name', 'Last Name', 'jpinnoz@gmail.com', 'admin', '$2y$10$giFVXqze/eqqXGlaG.c7aek30lN/5PWljqx..MouWCO9QdcRcX/1u', '$2y$10$BFBfu5lIRrr5oYVouelvO.XYfxGx3vQVj2ZCNut1yRNtKdwOck6Nq', '$2y$10$Yr34a2gba0mWN9BJMKme.e5vx.Z8Bdw.L2lqrGvqc75atvCBphUCq', '2024-04-30 16:48:43', NULL, NULL, '2024-04-02 20:52:43', '2024-06-15 20:06:05', 3, 1);
 
 --
 -- Indexes for dumped tables
@@ -331,7 +335,7 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for table `Cust_Pages`
 --
 ALTER TABLE `Cust_Pages`
-  MODIFY `Page_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Page_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `News`
@@ -349,7 +353,7 @@ ALTER TABLE `News_Comments`
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -124,7 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_POST['submitCode']=="Change_Pass"
 	}
 	if ($err_count > 0) {
 		$url = htmlentities($_SERVER['PHP_SELF']);
-		$url = preg_replace('/\//', '', $url);
+		$url = preg_replace('/\/$/', '', $url);
+		$_SESSION['notify'] .= "<div class='error'>$url</div><p>\r\n";
 		$location = "Location: ".$url."?username=".$userName."&temppass=".$tempPass;
 		header($location);
 		die();

@@ -14,7 +14,7 @@ session_start();
 	<title>Small Website Manager</title>
 	<!-- <meta charset="utf-8"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="desktop.css">
 </head>
 
 <body>
